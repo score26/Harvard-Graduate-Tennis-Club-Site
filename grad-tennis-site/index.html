@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harvard Griffin GSAS Tennis Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #A51C30;
+    --crimson-deep: #8A1727;
+    --crimson-soft: #E8D3D6;
+    --ink: #1E1E1E;
+    --beige: #EAE7E2;
+    --cream: #F5F2EB;
+    --ivy: #818C7E;
+    --ivy-deep: #6E7A6B;
+    --pear: #D9E0CF;
+    --mortar: #8C8179;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--beige);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 48px; max-width: 1280px; margin: 0 auto;
+  }
+  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
+  .nav-right { display: flex; align-items: center; gap: 34px; }
+  .nav-links { display: flex; gap: 30px; font-size: 15px; font-weight: 500; }
+  .nav-links a { opacity: 0.85; transition: opacity 0.15s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--crimson); color: #fff; font-weight: 600; font-size: 15px;
+    padding: 12px 22px; transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--crimson-deep); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    padding: 48px 48px 96px; max-width: 1280px; margin: 0 auto;
+  }
+  .hero-eyebrow { font-size: 17px; font-weight: 500; color: var(--mortar); margin-bottom: 22px; }
+  .hero h1 {
+    font-size: clamp(40px, 5vw, 68px); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em;
+  }
+  .hero h1 .accent { color: var(--crimson); }
+
+  .img-slot {
+    position: relative; background: var(--ivy); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .img-slot .placeholder {
+    color: rgba(255,255,255,0.92); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.04em; text-align: center; padding: 24px; line-height: 1.6; z-index: 1;
+  }
+  .img-slot .court-lines { position: absolute; inset: 0; opacity: 0.18; }
+  .hero .img-slot { aspect-ratio: 4 / 5; }
+
+  /* INFO STRIP */
+  .info-strip { background: var(--crimson-soft); padding: 56px 48px; }
+  .info-grid {
+    max-width: 1280px; margin: 0 auto; display: grid;
+    grid-template-columns: repeat(4, 1fr); gap: 40px;
+  }
+  .info-item .k {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--crimson); margin-bottom: 10px;
+  }
+  .info-item .v { font-size: 19px; font-weight: 600; line-height: 1.35; }
+  .info-item .v span { color: var(--mortar); font-weight: 500; font-size: 15px; display: block; margin-top: 4px; }
+
+  /* EVENTS */
+  .events { padding: 96px 48px; max-width: 1280px; margin: 0 auto; }
+  .events-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 56px; gap: 40px;
+  }
+  .events-head h2 {
+    font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; line-height: 0.95;
+    letter-spacing: -0.02em; color: var(--crimson);
+  }
+  .btn-crimson {
+    background: var(--crimson); color: #fff; font-weight: 600; font-size: 14px;
+    letter-spacing: 0.06em; text-transform: uppercase; padding: 16px 30px;
+    white-space: nowrap; transition: background 0.15s; flex-shrink: 0;
+  }
+  .btn-crimson:hover { background: var(--crimson-deep); }
+
+  .events-list { display: flex; flex-direction: column; }
+  .event-row {
+    display: grid; grid-template-columns: 200px 1fr auto; gap: 40px; align-items: center;
+    padding: 32px 0; border-top: 1.5px solid rgba(30,30,30,0.15);
+  }
+  .event-row:last-child { border-bottom: 1.5px solid rgba(30,30,30,0.15); }
+  .event-when { font-weight: 700; font-size: 16px; }
+  .event-when span { display: block; color: var(--mortar); font-weight: 500; font-size: 14px; margin-top: 2px; }
+  .event-body h3 { font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .event-body p { color: var(--mortar); font-size: 16px; max-width: 560px; }
+  .event-tag {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ivy); white-space: nowrap;
+  }
+
+  /* QUOTE BAND */
+  .quote-band { background: var(--ivy); color: var(--cream); padding: 120px 48px; text-align: center; }
+  .quote-band blockquote {
+    max-width: 1000px; margin: 0 auto; font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 800; line-height: 1.08; letter-spacing: -0.02em;
+  }
+  .quote-band cite {
+    display: block; margin-top: 36px; font-size: 17px; font-weight: 500;
+    font-style: normal; color: var(--pear);
+  }
+
+  /* HOW IT WORKS */
+  .how { padding: 96px 48px; max-width: 1280px; margin: 0 auto; }
+  .how h2 {
+    font-size: clamp(36px, 4.5vw, 56px); font-weight: 900; letter-spacing: -0.02em;
+    margin-bottom: 56px; max-width: 720px; line-height: 1.0;
+  }
+  .how h2 .accent { color: var(--crimson); }
+  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .how-card .num { font-size: 15px; font-weight: 700; color: var(--crimson); margin-bottom: 16px; }
+  .how-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .how-card p { color: var(--mortar); font-size: 16px; line-height: 1.6; }
+
+  /* JOIN / FOOTER BAND */
+  .join-band { background: var(--ivy); color: var(--cream); }
+  .join-images { display: grid; grid-template-columns: 1fr 1fr; }
+  .join-images .img-slot { aspect-ratio: 16 / 10; background: var(--ivy-deep); }
+  .join-content {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
+    max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px;
+  }
+  .join-org { font-size: 21px; font-weight: 700; }
+  .join-org .meta { font-weight: 400; font-size: 15px; color: var(--pear); margin-top: 14px; line-height: 1.7; }
+  .join-org .meta a { text-decoration: underline; }
+  .join-cta-box { text-align: center; }
+  .join-cta-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .join-btn {
+    display: inline-block; background: var(--cream); color: var(--ink); font-weight: 700;
+    font-size: 16px; padding: 16px 36px; transition: background 0.15s;
+  }
+  .join-btn:hover { background: #fff; }
+  .join-cta-box p { font-size: 14px; color: var(--pear); margin-top: 16px; }
+  .join-links { text-align: right; font-size: 16px; }
+  .join-links a { display: block; text-decoration: underline; margin-bottom: 10px; }
+  .footer-base {
+    border-top: 1px solid rgba(245,242,235,0.2); max-width: 1280px; margin: 0 auto;
+    padding: 24px 48px 40px; display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--pear);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav, .hero, .events, .how, .join-content { padding-left: 24px; padding-right: 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 40px; padding-bottom: 64px; }
+    .hero .img-slot { aspect-ratio: 4 / 3; }
+    .info-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .event-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+    .event-tag { margin-top: 4px; }
+    .how-grid { grid-template-columns: 1fr; gap: 36px; }
+    .join-images { grid-template-columns: 1fr; }
+    .join-content { grid-template-columns: 1fr; gap: 36px; text-align: left; }
+    .join-cta-box, .join-links { text-align: left; }
+    .footer-base { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Harvard Griffin GSAS Tennis Club</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#events">Events</a>
+      <a href="#how">How It Works</a>
+      <a href="#join">Visit</a>
+    </div>
+    <a href="#join" class="nav-cta">Become a Member</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <!-- To use a real photo: replace the SVG + .placeholder below with <img src="images/your-photo.jpg" alt="..."> -->
+  <div class="img-slot">
+    <svg class="court-lines" viewBox="0 0 400 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="30" width="320" height="440" fill="none" stroke="#fff" stroke-width="3"/>
+      <line x1="40" y1="250" x2="360" y2="250" stroke="#fff" stroke-width="3"/>
+      <line x1="120" y1="120" x2="280" y2="120" stroke="#fff" stroke-width="3"/>
+      <line x1="120" y1="380" x2="280" y2="380" stroke="#fff" stroke-width="3"/>
+      <line x1="200" y1="120" x2="200" y2="380" stroke="#fff" stroke-width="3"/>
+    </svg>
+    <div class="placeholder">ADD PHOTO HERE<br>(members on court at the Murr Center)</div>
+  </div>
+  <div>
+    <div class="hero-eyebrow">Harvard Griffin GSAS Tennis Club</div>
+    <h1>A tennis community for Harvard graduate students, <span class="accent">on and off the court.</span></h1>
+  </div>
+</section>
+
+<section class="info-strip">
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="k">Practice</div>
+      <div class="v">Tuesdays<span>7:30 &ndash; 9:30pm, Murr Center</span></div>
+    </div>
+    <div class="info-item">
+      <div class="k">Membership</div>
+      <div class="v">$15 / year<span>Sign up via Google Form</span></div>
+    </div>
+    <div class="info-item">
+      <div class="k">Skill Level</div>
+      <div class="v">All welcome<span>Beginner instruction available</span></div>
+    </div>
+    <div class="info-item">
+      <div class="k">Founded</div>
+      <div class="v">Summer 2024<span>A growing GSAS community</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="events">
+  <div class="events-head">
+    <h2>Upcoming<br>Events</h2>
+    <a href="#" class="btn-crimson">View All</a>
+  </div>
+  <div class="events-list">
+    <div class="event-row">
+      <div class="event-when">Every Tuesday<span>7:30 &ndash; 9:30pm</span></div>
+      <div class="event-body">
+        <h3>Weekly Practice</h3>
+        <p>Open play at the Murr Center for all skill levels. Beginners welcome, with instruction available and a limited number of loaner rackets.</p>
+      </div>
+      <div class="event-tag">Members</div>
+    </div>
+    <div class="event-row">
+      <div class="event-when">Seasonal</div>
+      <div class="event-body">
+        <h3>Tournament Watch Parties</h3>
+        <p>We gather to watch the Grand Slams and other major tournaments together as a club.</p>
+      </div>
+      <div class="event-tag">Social</div>
+    </div>
+    <div class="event-row">
+      <div class="event-when">Year-round</div>
+      <div class="event-body">
+        <h3>Team-Building Socials</h3>
+        <p>Events beyond the court to help GSAS students meet people across departments and programs.</p>
+      </div>
+      <div class="event-tag">Open</div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-band">
+  <blockquote>"Join us to play tennis, meet new people, and have fun."</blockquote>
+  <cite>&mdash; Harvard Griffin GSAS Tennis Club</cite>
+</section>
+
+<section class="how" id="how">
+  <h2>Getting started is <span class="accent">simple.</span></h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="num">01</div>
+      <h3>Fill out the form</h3>
+      <p>Join the email list and pay the $15 annual membership through our Google Form. That's all it takes to be a member.</p>
+    </div>
+    <div class="how-card">
+      <div class="num">02</div>
+      <h3>Bring a racket</h3>
+      <p>The Murr Center lends a limited number of rackets each practice, so we recommend bringing your own if you can.</p>
+    </div>
+    <div class="how-card">
+      <div class="num">03</div>
+      <h3>Show up Tuesday</h3>
+      <p>Come to practice from 7:30 to 9:30pm. Times may shift by semester depending on court availability &mdash; check the email list.</p>
+    </div>
+  </div>
+</section>
+
+<section class="join-band" id="join">
+  <div class="join-images">
+    <!-- Replace each .placeholder with <img src="images/photo.jpg" alt="..."> -->
+    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE<br>(practice / courts)</div></div>
+    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE<br>(social / group shot)</div></div>
+  </div>
+  <div class="join-content">
+    <div class="join-org">
+      Harvard Griffin GSAS Tennis Club
+      <div class="meta">
+        8 Harvard Yard<br>
+        Cambridge, MA 02138<br>
+        <a href="mailto:harvardgriffingsastennisclub@gmail.com">Email us</a>
+      </div>
+    </div>
+    <div class="join-cta-box">
+      <h3>Become a Member</h3>
+      <a href="#" class="join-btn">Sign Up &mdash; $15/yr</a>
+      <p>Membership runs through our Google Form</p>
+    </div>
+    <div class="join-links">
+      <a href="#">Instagram</a>
+      <a href="#">FAQ</a>
+      <a href="#events">Events</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <div>&copy; 2026 Harvard Griffin GSAS Tennis Club</div>
+    <div>An independent student organization, not an official unit of Harvard University.</div>
+  </div>
+</section>
+
+</body>
+</html>

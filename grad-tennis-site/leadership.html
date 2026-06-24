@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership — Harvard Griffin GSAS Tennis Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #A51C30;
+    --crimson-deep: #8A1727;
+    --crimson-soft: #E8D3D6;
+    --ink: #1E1E1E;
+    --beige: #EAE7E2;
+    --cream: #F5F2EB;
+    --ivy: #818C7E;
+    --ivy-deep: #6E7A6B;
+    --pear: #D9E0CF;
+    --mortar: #8C8179;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--beige);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV (matches homepage) */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 48px; max-width: 1280px; margin: 0 auto;
+  }
+  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
+  .nav-right { display: flex; align-items: center; gap: 34px; }
+  .nav-links { display: flex; gap: 30px; font-size: 15px; font-weight: 500; }
+  .nav-links a { opacity: 0.85; transition: opacity 0.15s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a.active { opacity: 1; color: var(--crimson); font-weight: 700; }
+  .nav-cta {
+    background: var(--crimson); color: #fff; font-weight: 600; font-size: 15px;
+    padding: 12px 22px; transition: background 0.15s;
+  }
+  .nav-cta:hover { background: var(--crimson-deep); }
+
+  /* PAGE HEADER */
+  .page-head {
+    max-width: 1280px; margin: 0 auto; padding: 48px 48px 64px;
+  }
+  .page-head .eyebrow { font-size: 17px; font-weight: 500; color: var(--mortar); margin-bottom: 18px; }
+  .page-head h1 {
+    font-size: clamp(44px, 6vw, 80px); font-weight: 900; line-height: 0.95;
+    letter-spacing: -0.025em; max-width: 900px;
+  }
+  .page-head h1 .accent { color: var(--crimson); }
+  .page-head p {
+    margin-top: 24px; max-width: 620px; font-size: 18px; color: var(--mortar); line-height: 1.6;
+  }
+
+  /* TEAM GRID */
+  .team {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px 96px;
+  }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 36px 28px;
+  }
+  .member .photo {
+    position: relative; aspect-ratio: 3 / 4; background: var(--ivy);
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .member .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .member .photo .placeholder {
+    color: rgba(255,255,255,0.92); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.05em; text-align: center; padding: 16px; z-index: 1; line-height: 1.5;
+  }
+  .member .photo .court-lines { position: absolute; inset: 0; opacity: 0.16; }
+  .member .name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .member .role {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--crimson); margin-top: 4px;
+  }
+
+  /* JOIN / FOOTER BAND (matches homepage) */
+  .join-band { background: var(--ivy); color: var(--cream); }
+  .join-content {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
+    max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px;
+  }
+  .join-org { font-size: 21px; font-weight: 700; }
+  .join-org .meta { font-weight: 400; font-size: 15px; color: var(--pear); margin-top: 14px; line-height: 1.7; }
+  .join-org .meta a { text-decoration: underline; }
+  .join-cta-box { text-align: center; }
+  .join-cta-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.01em; }
+  .join-btn {
+    display: inline-block; background: var(--cream); color: var(--ink); font-weight: 700;
+    font-size: 16px; padding: 16px 36px; transition: background 0.15s;
+  }
+  .join-btn:hover { background: #fff; }
+  .join-cta-box p { font-size: 14px; color: var(--pear); margin-top: 16px; }
+  .join-links { text-align: right; font-size: 16px; }
+  .join-links a { display: block; text-decoration: underline; margin-bottom: 10px; }
+  .footer-base {
+    border-top: 1px solid rgba(245,242,235,0.2); max-width: 1280px; margin: 0 auto;
+    padding: 24px 48px 40px; display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--pear);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1080px) {
+    .team-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav, .page-head, .team, .join-content { padding-left: 24px; padding-right: 24px; }
+    .nav-links { display: none; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+    .join-content { grid-template-columns: 1fr; gap: 36px; text-align: left; }
+    .join-cta-box, .join-links { text-align: left; }
+    .footer-base { flex-direction: column; gap: 8px; }
+  }
+  @media (max-width: 480px) {
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="brand">Harvard Griffin GSAS Tennis Club</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html#events">Events</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="leadership.html" class="active">Leadership</a>
+      <a href="index.html#join">Visit</a>
+    </div>
+    <a href="index.html#join" class="nav-cta">Become a Member</a>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="eyebrow">Harvard Griffin GSAS Tennis Club</div>
+  <h1>Meet the <span class="accent">team</span> behind the club.</h1>
+  <p>The student officers who organize practices, run our socials, and keep the GSAS tennis community going.</p>
+</header>
+
+<!--
+  HOW TO ADD A HEADSHOT:
+  Inside each .photo block, replace the <svg> and <div class="placeholder"> with:
+      <img src="images/leadership/firstname.jpg" alt="Name, Role">
+  Then edit the .name and .role text below each photo.
+-->
+<section class="team">
+  <div class="team-grid">
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">President</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Vice President</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Treasurer</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Secretary</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Events Coordinator</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Social Chair</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Communications</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Membership Chair</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Equipment Manager</div>
+    </div>
+
+    <div class="member">
+      <div class="photo">
+        <svg class="court-lines" viewBox="0 0 300 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="24" width="240" height="352" fill="none" stroke="#fff" stroke-width="3"/><line x1="30" y1="200" x2="270" y2="200" stroke="#fff" stroke-width="3"/><line x1="150" y1="24" x2="150" y2="376" stroke="#fff" stroke-width="2"/></svg>
+        <div class="placeholder">ADD HEADSHOT</div>
+      </div>
+      <div class="name">Member Name</div>
+      <div class="role">Webmaster</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="join-band">
+  <div class="join-content">
+    <div class="join-org">
+      Harvard Griffin GSAS Tennis Club
+      <div class="meta">
+        8 Harvard Yard<br>
+        Cambridge, MA 02138<br>
+        <a href="mailto:harvardgriffingsastennisclub@gmail.com">Email us</a>
+      </div>
+    </div>
+    <div class="join-cta-box">
+      <h3>Become a Member</h3>
+      <a href="#" class="join-btn">Sign Up &mdash; $15/yr</a>
+      <p>Membership runs through our Google Form</p>
+    </div>
+    <div class="join-links">
+      <a href="#">Instagram</a>
+      <a href="#">FAQ</a>
+      <a href="index.html#events">Events</a>
+    </div>
+  </div>
+  <div class="footer-base">
+    <div>&copy; 2026 Harvard Griffin GSAS Tennis Club</div>
+    <div>An independent student organization, not an official unit of Harvard University.</div>
+  </div>
+</section>
+
+</body>
+</html>
