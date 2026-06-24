@@ -11,7 +11,6 @@
   :root {
     --crimson: #A51C30;
     --crimson-deep: #8A1727;
-    --crimson-soft: #E8D3D6;
     --ink: #1E1E1E;
     --beige: #EAE7E2;
     --cream: #F5F2EB;
@@ -33,48 +32,51 @@
   }
   a { color: inherit; text-decoration: none; }
 
-  /* NAV (matches homepage) */
+  /* NAV */
   nav {
     display: flex; align-items: center; justify-content: space-between;
     padding: 26px 48px; max-width: 1280px; margin: 0 auto;
+    gap: 24px;
   }
-  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
-  .nav-right { display: flex; align-items: center; gap: 34px; }
+  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; flex-shrink: 1; min-width: 0; }
+  .nav-right { display: flex; align-items: center; gap: 34px; flex-shrink: 0; }
   .nav-links { display: flex; gap: 30px; font-size: 15px; font-weight: 500; }
   .nav-links a { opacity: 0.85; transition: opacity 0.15s; }
   .nav-links a:hover { opacity: 1; }
   .nav-links a.active { opacity: 1; color: var(--crimson); font-weight: 700; }
   .nav-cta {
     background: var(--crimson); color: #fff; font-weight: 600; font-size: 15px;
-    padding: 12px 22px; transition: background 0.15s;
+    padding: 12px 22px; transition: background 0.15s; border-radius: 6px;
+    white-space: nowrap;
   }
   .nav-cta:hover { background: var(--crimson-deep); }
 
   /* PAGE HEADER */
-  .page-head {
-    max-width: 1280px; margin: 0 auto; padding: 48px 48px 64px;
-  }
+  .page-head { max-width: 1280px; margin: 0 auto; padding: 48px 48px 64px; }
   .page-head .eyebrow { font-size: 17px; font-weight: 500; color: var(--mortar); margin-bottom: 18px; }
   .page-head h1 {
     font-size: clamp(44px, 6vw, 80px); font-weight: 900; line-height: 0.95;
     letter-spacing: -0.025em; max-width: 900px;
   }
   .page-head h1 .accent { color: var(--crimson); }
-  .page-head p {
-    margin-top: 24px; max-width: 620px; font-size: 18px; color: var(--mortar); line-height: 1.6;
+  .page-head p { margin-top: 24px; max-width: 620px; font-size: 18px; color: var(--mortar); line-height: 1.6; }
+
+  /* SECTION LABEL */
+  .section-label {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px 32px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mortar);
+    border-bottom: 1.5px solid rgba(30,30,30,0.12);
+    margin-bottom: 48px;
   }
 
-  /* TEAM GRID */
-  .team {
-    max-width: 1280px; margin: 0 auto; padding: 0 48px 96px;
-  }
-  .team-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 36px 28px;
-  }
+  /* CURRENT OFFICERS GRID */
+  .team { max-width: 1280px; margin: 0 auto; padding: 0 48px 80px; }
+  .team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 36px 28px; }
   .member .photo {
     position: relative; aspect-ratio: 3 / 4; background: var(--ivy);
     overflow: hidden; display: flex; align-items: center; justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 16px; border-radius: 8px;
   }
   .member .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .member .photo .placeholder {
@@ -88,25 +90,36 @@
     color: var(--crimson); margin-top: 4px;
   }
 
-  /* JOIN / FOOTER BAND (matches homepage) */
+  /* PAST OFFICERS */
+  .past { max-width: 1280px; margin: 0 auto; padding: 0 48px 96px; }
+  .past-label {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mortar);
+    padding-bottom: 24px;
+    border-bottom: 1.5px solid rgba(30,30,30,0.12);
+    margin-bottom: 0;
+  }
+  .past-list { display: flex; flex-direction: column; }
+  .past-row {
+    display: grid; grid-template-columns: 220px 1fr; gap: 40px;
+    padding: 24px 0; border-bottom: 1px solid rgba(30,30,30,0.08);
+    align-items: baseline;
+  }
+  .past-name { font-size: 17px; font-weight: 700; }
+  .past-role {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--crimson); margin-top: 3px;
+  }
+  .past-desc { font-size: 15px; color: var(--mortar); line-height: 1.6; }
+
+  /* FOOTER BAND */
   .join-band { background: var(--ivy); color: var(--cream); }
   .join-content {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
     max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px;
   }
   .join-org { font-size: 21px; font-weight: 700; }
   .join-org .meta { font-weight: 400; font-size: 15px; color: var(--pear); margin-top: 14px; line-height: 1.7; }
   .join-org .meta a { text-decoration: underline; }
-  .join-cta-box { text-align: center; }
-  .join-cta-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.01em; }
-  .join-btn {
-    display: inline-block; background: var(--cream); color: var(--ink); font-weight: 700;
-    font-size: 16px; padding: 16px 36px; transition: background 0.15s;
-  }
-  .join-btn:hover { background: #fff; }
-  .join-cta-box p { font-size: 14px; color: var(--pear); margin-top: 16px; }
-  .join-links { text-align: right; font-size: 16px; }
-  .join-links a { display: block; text-decoration: underline; margin-bottom: 10px; }
   .footer-base {
     border-top: 1px solid rgba(245,242,235,0.2); max-width: 1280px; margin: 0 auto;
     padding: 24px 48px 40px; display: flex; justify-content: space-between;
@@ -118,11 +131,13 @@
     .team-grid { grid-template-columns: repeat(4, 1fr); }
   }
   @media (max-width: 900px) {
-    nav, .page-head, .team, .join-content { padding-left: 24px; padding-right: 24px; }
+    nav { padding: 20px 24px; }
+    .page-head, .team, .past, .join-content { padding-left: 24px; padding-right: 24px; }
+    .section-label { padding-left: 24px; padding-right: 24px; }
     .nav-links { display: none; }
+    .brand { font-size: 15px; }
     .team-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
-    .join-content { grid-template-columns: 1fr; gap: 36px; text-align: left; }
-    .join-cta-box, .join-links { text-align: left; }
+    .past-row { grid-template-columns: 1fr; gap: 6px; }
     .footer-base { flex-direction: column; gap: 8px; }
   }
   @media (max-width: 480px) {
@@ -151,12 +166,8 @@
   <p>The student officers who organize practices, run our socials, and keep the GSAS tennis community going.</p>
 </header>
 
-<!--
-  HOW TO ADD A HEADSHOT:
-  Inside each .photo block, replace the <svg> and <div class="placeholder"> with:
-      <img src="images/leadership/firstname.jpg" alt="Name, Role">
-  Then edit the .name and .role text below each photo.
--->
+<div class="section-label">Current Officers</div>
+
 <section class="team">
   <div class="team-grid">
 
@@ -253,6 +264,39 @@
   </div>
 </section>
 
+<!-- PAST OFFICERS -->
+<!-- To add more past officers, copy one .past-row block and update the name, role, and description -->
+<section class="past">
+  <div class="past-label">Past Officers</div>
+  <div class="past-list">
+
+    <div class="past-row">
+      <div>
+        <div class="past-name">Member Name</div>
+        <div class="past-role">President, 2024-2025</div>
+      </div>
+      <div class="past-desc">Short description of their contribution to the club or what they are doing now.</div>
+    </div>
+
+    <div class="past-row">
+      <div>
+        <div class="past-name">Member Name</div>
+        <div class="past-role">Vice President, 2024-2025</div>
+      </div>
+      <div class="past-desc">Short description of their contribution to the club or what they are doing now.</div>
+    </div>
+
+    <div class="past-row">
+      <div>
+        <div class="past-name">Member Name</div>
+        <div class="past-role">Treasurer, 2024-2025</div>
+      </div>
+      <div class="past-desc">Short description of their contribution to the club or what they are doing now.</div>
+    </div>
+
+  </div>
+</section>
+
 <section class="join-band">
   <div class="join-content">
     <div class="join-org">
@@ -262,16 +306,6 @@
         Cambridge, MA 02138<br>
         <a href="mailto:harvardgriffingsastennisclub@gmail.com">Email us</a>
       </div>
-    </div>
-    <div class="join-cta-box">
-      <h3>Become a Member</h3>
-      <a href="#" class="join-btn">Sign Up &mdash; $15/yr</a>
-      <p>Membership runs through our Google Form</p>
-    </div>
-    <div class="join-links">
-      <a href="#">Instagram</a>
-      <a href="#">FAQ</a>
-      <a href="index.html#events">Events</a>
     </div>
   </div>
   <div class="footer-base">
