@@ -31,10 +31,7 @@
     -webkit-font-smoothing: antialiased;
     line-height: 1.5;
   }
-
   a { color: inherit; text-decoration: none; }
-
-  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
 
   /* NAV */
   nav {
@@ -52,9 +49,24 @@
   }
   .nav-cta:hover { background: var(--crimson-deep); }
 
-  /* HERO */
+  /* HERO PHOTO */
+  .hero-photo {
+    padding: 24px 48px 0;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .hero-photo img {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+    border-radius: 16px;
+  }
+
+  /* HERO TEXT */
   .hero {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
     padding: 48px 48px 96px; max-width: 1280px; margin: 0 auto;
   }
   .hero-eyebrow { font-size: 17px; font-weight: 500; color: var(--mortar); margin-bottom: 22px; }
@@ -62,7 +74,15 @@
     font-size: clamp(40px, 5vw, 68px); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em;
   }
   .hero h1 .accent { color: var(--crimson); }
+  .hero-right { padding-top: 8px; }
+  .hero-desc { font-size: 18px; color: var(--mortar); line-height: 1.65; margin-bottom: 28px; }
+  .hero-cta {
+    display: inline-block; background: var(--crimson); color: #fff;
+    font-weight: 700; font-size: 15px; padding: 15px 28px; transition: background 0.15s;
+  }
+  .hero-cta:hover { background: var(--crimson-deep); }
 
+  /* IMG SLOT (used in footer band) */
   .img-slot {
     position: relative; background: var(--ivy); overflow: hidden;
     display: flex; align-items: center; justify-content: center;
@@ -72,8 +92,6 @@
     color: rgba(255,255,255,0.92); font-size: 13px; font-weight: 600;
     letter-spacing: 0.04em; text-align: center; padding: 24px; line-height: 1.6; z-index: 1;
   }
-  .img-slot .court-lines { position: absolute; inset: 0; opacity: 0.18; }
-  .hero .img-slot { aspect-ratio: 16 / 9; }
 
   /* INFO STRIP */
   .info-strip { background: var(--crimson-soft); padding: 56px 48px; }
@@ -90,21 +108,11 @@
 
   /* EVENTS */
   .events { padding: 96px 48px; max-width: 1280px; margin: 0 auto; }
-  .events-head {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    margin-bottom: 56px; gap: 40px;
-  }
+  .events-head { margin-bottom: 56px; }
   .events-head h2 {
     font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; line-height: 0.95;
     letter-spacing: -0.02em; color: var(--crimson);
   }
-  .btn-crimson {
-    background: var(--crimson); color: #fff; font-weight: 600; font-size: 14px;
-    letter-spacing: 0.06em; text-transform: uppercase; padding: 16px 30px;
-    white-space: nowrap; transition: background 0.15s; flex-shrink: 0;
-  }
-  .btn-crimson:hover { background: var(--crimson-deep); }
-
   .events-list { display: flex; flex-direction: column; }
   .event-row {
     display: grid; grid-template-columns: 200px 1fr auto; gap: 40px; align-items: center;
@@ -172,10 +180,9 @@
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav, .hero, .events, .how, .join-content { padding-left: 24px; padding-right: 24px; }
+    nav, .hero-photo, .hero, .events, .how, .join-content { padding-left: 24px; padding-right: 24px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; gap: 40px; padding-bottom: 64px; }
-    .hero .img-slot { aspect-ratio: 4 / 3; }
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-bottom: 64px; }
     .info-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .event-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
     .event-tag { margin-top: 4px; }
@@ -195,20 +202,25 @@
     <div class="nav-links">
       <a href="#events">Events</a>
       <a href="#how">How It Works</a>
+      <a href="leadership.html">Leadership</a>
       <a href="#join">Visit</a>
     </div>
     <a href="#join" class="nav-cta">Become a Member</a>
   </div>
 </nav>
 
+<div class="hero-photo">
+  <img src="images/hggtc-april2026.jpeg" alt="Harvard Griffin GSAS Tennis Club members">
+</div>
+
 <section class="hero">
-  <!-- To use a real photo: replace the SVG + .placeholder below with <img src="images/your-photo.jpg" alt="..."> -->
-<div class="img-slot">
-    <img src="images/hggtc-april2026.jpeg" alt="Harvard Griffin GSAS Tennis Club members">
-  </div>
   <div>
     <div class="hero-eyebrow">Harvard Griffin GSAS Tennis Club</div>
     <h1>A tennis community for Harvard graduate students, <span class="accent">on and off the court.</span></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc">Since the summer of 2024, we have been fostering a vibrant community among Harvard graduate students through a shared passion for tennis. All skill levels welcome.</p>
+    <a href="#join" class="hero-cta">Become a Member -- $15/yr</a>
   </div>
 </section>
 
@@ -236,7 +248,6 @@
 <section class="events" id="events">
   <div class="events-head">
     <h2>Upcoming<br>Events</h2>
-    <a href="#" class="btn-crimson">View All</a>
   </div>
   <div class="events-list">
     <div class="event-row">
@@ -268,7 +279,7 @@
 
 <section class="quote-band">
   <blockquote>"Join us to play tennis, meet new people, and have fun."</blockquote>
-  <cite>&mdash; Harvard Griffin GSAS Tennis Club</cite>
+  <cite>Harvard Griffin GSAS Tennis Club</cite>
 </section>
 
 <section class="how" id="how">
@@ -277,7 +288,7 @@
     <div class="how-card">
       <div class="num">01</div>
       <h3>Fill out the form</h3>
-      <p>Join the email list and pay the $15 annual membership through our Google Form. That's all it takes to be a member.</p>
+      <p>Join the email list and pay the $15 annual membership through our Google Form. That is all it takes to be a member.</p>
     </div>
     <div class="how-card">
       <div class="num">02</div>
@@ -287,16 +298,15 @@
     <div class="how-card">
       <div class="num">03</div>
       <h3>Show up Tuesday</h3>
-      <p>Come to practice from 7:30 to 9:30pm. Times may shift by semester depending on court availability &mdash; check the email list.</p>
+      <p>Come to practice from 7:30 to 9:30pm. Times may shift by semester depending on court availability, so check the email list.</p>
     </div>
   </div>
 </section>
 
 <section class="join-band" id="join">
   <div class="join-images">
-    <!-- Replace each .placeholder with <img src="images/photo.jpg" alt="..."> -->
-    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE<br>(practice / courts)</div></div>
-    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE<br>(social / group shot)</div></div>
+    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE (practice / courts)</div></div>
+    <div class="img-slot"><div class="placeholder">ADD PHOTO HERE (social / group shot)</div></div>
   </div>
   <div class="join-content">
     <div class="join-org">
@@ -309,7 +319,7 @@
     </div>
     <div class="join-cta-box">
       <h3>Become a Member</h3>
-      <a href="#" class="join-btn">Sign Up &mdash; $15/yr</a>
+      <a href="#" class="join-btn">Sign Up -- $15/yr</a>
       <p>Membership runs through our Google Form</p>
     </div>
     <div class="join-links">
