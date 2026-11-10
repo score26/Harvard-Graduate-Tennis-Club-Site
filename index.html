@@ -49,6 +49,18 @@
   }
   .nav-cta:hover { background: var(--crimson-deep); }
 
+  /* MOBILE MENU */
+  nav { position: relative; }
+  .menu-toggle {
+    display: none; width: 44px; height: 44px; flex-shrink: 0;
+    align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+    background: none; border: 1.5px solid rgba(30,30,30,0.2); border-radius: 6px; cursor: pointer;
+  }
+  .menu-toggle span { display: block; width: 18px; height: 2px; background: var(--ink); transition: transform 0.2s, opacity 0.2s; }
+  nav.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
+  nav.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* HERO PHOTO */
   .hero-photo {
     padding: 24px 48px 0;
@@ -76,22 +88,6 @@
   .hero h1 .accent { color: var(--crimson); }
   .hero-right { padding-top: 8px; }
   .hero-desc { font-size: 18px; color: var(--mortar); line-height: 1.65; margin-bottom: 28px; }
-  .hero-cta {
-    display: inline-block; background: var(--crimson); color: #fff;
-    font-weight: 700; font-size: 15px; padding: 15px 28px; transition: background 0.15s;
-  }
-  .hero-cta:hover { background: var(--crimson-deep); }
-
-  /* IMG SLOT (used in footer band) */
-  .img-slot {
-    position: relative; background: var(--ivy); overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .img-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .img-slot .placeholder {
-    color: rgba(255,255,255,0.92); font-size: 13px; font-weight: 600;
-    letter-spacing: 0.04em; text-align: center; padding: 24px; line-height: 1.6; z-index: 1;
-  }
 
   /* INFO STRIP */
   .info-strip { background: var(--crimson-soft); padding: 56px 48px; }
@@ -153,25 +149,10 @@
 
   /* JOIN / FOOTER BAND */
   .join-band { background: var(--ivy); color: var(--cream); }
-  .join-images { display: grid; grid-template-columns: 1fr 1fr; }
-  .join-images .img-slot { aspect-ratio: 16 / 10; background: var(--ivy-deep); }
-  .join-content {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; align-items: start;
-    max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px;
-  }
+  .join-content { max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px; }
   .join-org { font-size: 21px; font-weight: 700; }
   .join-org .meta { font-weight: 400; font-size: 15px; color: var(--pear); margin-top: 14px; line-height: 1.7; }
   .join-org .meta a { text-decoration: underline; }
-  .join-cta-box { text-align: center; }
-  .join-cta-box h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; letter-spacing: -0.01em; }
-  .join-btn {
-    display: inline-block; background: var(--cream); color: var(--ink); font-weight: 700;
-    font-size: 16px; padding: 16px 36px; transition: background 0.15s;
-  }
-  .join-btn:hover { background: #fff; }
-  .join-cta-box p { font-size: 14px; color: var(--pear); margin-top: 16px; }
-  .join-links { text-align: right; font-size: 16px; }
-  .join-links a { display: block; text-decoration: underline; margin-bottom: 10px; }
   .footer-base {
     border-top: 1px solid rgba(245,242,235,0.2); max-width: 1280px; margin: 0 auto;
     padding: 24px 48px 40px; display: flex; justify-content: space-between;
@@ -181,15 +162,23 @@
   /* RESPONSIVE */
   @media (max-width: 900px) {
     nav, .hero-photo, .hero, .events, .how, .join-content { padding-left: 24px; padding-right: 24px; }
-    .nav-links { display: none; }
+    .brand { font-size: 15px; }
+    .nav-right { gap: 12px; }
+    .menu-toggle { display: flex; }
+    .nav-cta { font-size: 14px; padding: 11px 16px; white-space: nowrap; }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 24px; right: 24px; z-index: 50;
+      flex-direction: column; gap: 0; padding: 8px; background: var(--cream);
+      border-radius: 10px; box-shadow: 0 12px 32px rgba(30,30,30,0.15);
+    }
+    nav.open .nav-links { display: flex; }
+    .nav-links a { padding: 14px 16px; opacity: 1; font-size: 16px; border-radius: 6px; }
+    .nav-links a:hover { background: var(--beige); }
     .hero { grid-template-columns: 1fr; gap: 32px; padding-bottom: 64px; }
     .info-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
     .event-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
     .event-tag { margin-top: 4px; }
     .how-grid { grid-template-columns: 1fr; gap: 36px; }
-    .join-images { grid-template-columns: 1fr; }
-    .join-content { grid-template-columns: 1fr; gap: 36px; text-align: left; }
-    .join-cta-box, .join-links { text-align: left; }
     .footer-base { flex-direction: column; gap: 8px; }
   }
 </style>
@@ -199,18 +188,19 @@
 <nav>
   <div class="brand">Harvard Graduate Tennis Club</div>
   <div class="nav-right">
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="#events">Events</a>
       <a href="#how">How It Works</a>
       <a href="leadership.html">Leadership</a>
       <a href="https://www.instagram.com/harvard_grad_tennis_club/" target="_blank">Instagram</a>
     </div>
     <a href="https://docs.google.com/forms/d/1S2SS2_oEjFC9LeZhb5DVs4G8AgGqv0lL6LyE40gG2-0/viewform" target="_blank" class="nav-cta">Become a Member</a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div class="hero-photo">
-  <img src="images/hggtc-april2026.jpeg" alt="Harvard Griffin GSAS Tennis Club members">
+  <img src="images/hggtc-april2026.jpeg" alt="Harvard Graduate Tennis Club members">
 </div>
 
 <section class="hero">
@@ -231,7 +221,7 @@
     </div>
     <div class="info-item">
       <div class="k">Membership</div>
-      <div class="v">$15 / year<span>Sign up via Google Form</span></div>
+      <div class="v">$30/semester<span>Sign up via Google Form</span></div>
     </div>
     <div class="info-item">
       <div class="k">Skill Level</div>
@@ -300,7 +290,7 @@
     <div class="how-card">
       <div class="num">02</div>
       <h3>Become a member</h3>
-      <p>Pay the $15 annual membership fee through our Google Form once notified.</p>
+      <p>Pay the $30/semester membership fee through our Google Form once notified.</p>
     </div>
     <div class="how-card">
       <div class="num">03</div>
@@ -313,7 +303,7 @@
 <section class="join-band" id="join">
 <div class="join-content">
 <div class="join-org">
-      Harvard Griffin GSAS Tennis Club
+      Harvard Graduate Tennis Club
       <div class="meta">
         Cambridge, MA <br>
         <a href="mailto:harvardgriffingsastennisclub@gmail.com">Email us</a><br>
@@ -322,10 +312,25 @@
     </div>
   </div>
   <div class="footer-base">
-    <div>&copy; 2026 Harvard Griffin GSAS Graduate Tennis Club</div>
+    <div>&copy; 2026 Harvard Graduate Tennis Club</div>
     <div>A registered Harvard University student organization. </div>
   </div>
 </section>
 
+<script>
+  (function () {
+    var nav = document.querySelector('nav');
+    var btn = nav.querySelector('.menu-toggle');
+    function setOpen(open) {
+      nav.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    btn.addEventListener('click', function () { setOpen(!nav.classList.contains('open')); });
+    nav.querySelectorAll('.nav-links a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) setOpen(false); });
+  })();
+</script>
 </body>
 </html>
