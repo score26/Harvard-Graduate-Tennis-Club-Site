@@ -4,308 +4,292 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Harvard Graduate Tennis Club</title>
+<meta name="description" content="A tennis community for Harvard graduate students. Weekly practice, socials and watch parties, every level welcome.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --crimson: #A51C30;
-    --crimson-deep: #8A1727;
-    --crimson-soft: #E8D3D6;
-    --ink: #1E1E1E;
-    --beige: #EAE7E2;
-    --cream: #F5F2EB;
-    --ivy: #818C7E;
-    --ivy-deep: #6E7A6B;
-    --pear: #D9E0CF;
-    --mortar: #8C8179;
-  }
+/* Layout from a Hallmark redesign; colours, type and corners restored to the original site. */
+@import url("./tokens.css");
+@import url("./base.css");
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+/* Type, per the theme */
+h1, h2 { line-height: 1.02; }
+h2 { font-weight: 900; }
+/* Type scale, four levels below the headline:
+   section h2 (--text-section) > item title h3 (1.375rem) > body (1rem) > small label (0.875rem) */
+h3 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+.accent { color: var(--color-accent); }
+.muted { color: var(--color-muted); }
+.label { font-size: 0.875rem; font-weight: 600; color: var(--color-muted); }
 
-  body {
-    background: var(--beige);
-    color: var(--ink);
-    font-family: 'Archivo', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
-  a { color: inherit; text-decoration: none; }
+/* Links and buttons, eight states */
+a { text-decoration-color: var(--color-accent); transition: text-decoration-thickness var(--dur-micro) var(--ease-out); }
+a:hover { text-decoration-thickness: 2px; }
+a:active { color: var(--color-accent); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; transition: none; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px;
+  padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-btn);
+  font-family: var(--font-body); font-size: var(--text-md); font-weight: 700; text-decoration: none; white-space: nowrap;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.btn--primary:hover { background: var(--color-accent-deep); border-color: var(--color-accent-deep); }
+.btn--secondary { background: transparent; color: var(--color-ink); }
+.btn--secondary:hover { background: var(--color-paper-3); }
+.btn:active { transform: translateY(1px); }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 
-  /* NAV */
-  nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 26px 48px; max-width: 1280px; margin: 0 auto;
-  }
-  .brand { font-weight: 800; font-size: 19px; letter-spacing: -0.01em; }
-  .nav-right { display: flex; align-items: center; gap: 34px; }
-  .nav-links { display: flex; gap: 30px; font-size: 15px; font-weight: 500; }
-  .nav-links a { opacity: 0.85; transition: opacity 0.15s; }
-  .nav-links a:hover { opacity: 1; }
-  .nav-cta {
-    background: var(--crimson); color: #fff; font-weight: 600; font-size: 15px;
-    padding: 12px 22px; transition: background 0.15s; border-radius: 6px;
-  }
-  .nav-cta:hover { background: var(--crimson-deep); }
+/* NAV */
+.slab { background: var(--color-paper); color: var(--color-ink); position: relative; z-index: var(--z-sticky-nav); }
+.slab nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: 88px; }
+.wordmark { font-family: var(--font-display); font-weight: 800; font-size: 1.1875rem; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap; }
+.nav-right { display: flex; align-items: center; gap: var(--space-xl); }
+.nav-links { display: flex; gap: var(--space-lg); font-size: 0.9375rem; font-weight: 500; }
+.nav-links a { white-space: nowrap; text-decoration: none; color: var(--color-ink); opacity: 0.85; transition: opacity var(--dur-micro) var(--ease-out); }
+.nav-links a:hover { opacity: 1; text-decoration: underline; text-decoration-color: var(--color-accent); }
+.slab .btn--primary { min-height: 44px; font-weight: 600; }
+.menu-toggle {
+  display: none; width: 44px; height: 44px; flex-shrink: 0; align-items: center; justify-content: center; flex-direction: column; gap: var(--space-2xs);
+  background: transparent; border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-btn); cursor: pointer;
+}
+.menu-toggle:hover { border-color: var(--color-ink); }
+.menu-toggle:active { transform: translateY(1px); }
+.menu-toggle span { display: block; width: 18px; height: 2px; background: var(--color-ink); transition: transform var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out); }
+nav.open .menu-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
+nav.open .menu-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-  /* MOBILE MENU */
-  nav { position: relative; }
-  .menu-toggle {
-    display: none; width: 44px; height: 44px; flex-shrink: 0;
-    align-items: center; justify-content: center; flex-direction: column; gap: 5px;
-    background: none; border: 1.5px solid rgba(30,30,30,0.2); border-radius: 6px; cursor: pointer;
-  }
-  .menu-toggle span { display: block; width: 18px; height: 2px; background: var(--ink); transition: transform 0.2s, opacity 0.2s; }
-  nav.open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
-  nav.open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* HERO: Ledge */
+.hero { padding-block: var(--space-lg) var(--space-2xl); }
+.plate { margin: 0; }
+.plate [data-slot] { height: clamp(240px, 40dvh, 520px); border-radius: var(--radius-card); }
+.plate [data-slot] > img { object-position: center 62%; }
+.plate figcaption { margin-top: var(--space-xs); }
+/* One column at every width: headline, then the sentence, then the two buttons side by side */
+.hero-foot { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-lg); }
+.hero-foot h1 { max-width: 22ch; font-size: clamp(2.5rem, 3vw + 1rem, 4.5rem); }
+.hero-foot p { font-size: var(--text-lead); line-height: 1.45; max-width: 44ch; margin: var(--space-md) 0 var(--space-lg); }
 
-  /* HERO PHOTO */
-  .hero-photo {
-    padding: 24px 48px 0;
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-  .hero-photo img {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-    border-radius: 16px;
-  }
+/* Sections */
+.section { padding-block: var(--section-gap-s); }
+.split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--gap-columns); align-items: start; }
 
-  /* HERO TEXT */
-  .hero {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
-    padding: 48px 48px 96px; max-width: 1280px; margin: 0 auto;
-  }
-  .hero-eyebrow { font-size: 17px; font-weight: 500; color: var(--mortar); margin-bottom: 22px; }
-  .hero h1 {
-    font-size: clamp(40px, 5vw, 68px); font-weight: 800; line-height: 1.02; letter-spacing: -0.02em;
-  }
-  .hero h1 .accent { color: var(--crimson); }
-  .hero-right { padding-top: 8px; }
-  .hero-desc { font-size: 18px; color: var(--mortar); line-height: 1.65; margin-bottom: 28px; }
+/* Schedule: the one table that matters, under the double rule */
+.ledger { border-top: var(--rule-hair) solid var(--color-rule); }
+.ledger-row {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 2fr); gap: var(--gap-columns);
+  padding-block: var(--space-xl); border-bottom: var(--rule-hair) solid var(--color-rule); align-items: baseline;
+}
+/* When: smaller than the title, set apart in crimson */
+.ledger-row .when { font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--color-accent); }
+.ledger-row h3 { margin-bottom: var(--space-xs); }
+.ledger-row .tag { text-align: right; }
 
-  /* INFO STRIP */
-  .info-strip { background: var(--crimson-soft); padding: 56px 48px; }
-  .info-grid {
-    max-width: 1280px; margin: 0 auto; display: grid;
-    grid-template-columns: repeat(4, 1fr); gap: 40px;
-  }
-  .info-item .k {
-    font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--crimson); margin-bottom: 10px;
-  }
-  .info-item .v { font-size: 19px; font-weight: 600; line-height: 1.35; }
-  .info-item .v span { color: var(--mortar); font-weight: 500; font-size: 15px; display: block; margin-top: 4px; }
+/* Joining: paper band */
+.band { background: var(--color-paper-2); }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.steps li {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 7fr); gap: var(--gap-columns);
+  padding-block: var(--space-xl); border-top: var(--rule-hair) solid var(--color-rule-2); counter-increment: step;
+}
+.steps li:last-child { border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+.steps li { align-items: baseline; }
+.steps li::before { content: counter(step, decimal-leading-zero); font-weight: 700; font-size: 1rem; line-height: 1.4; color: var(--color-accent); }
+.steps h3 { margin-bottom: var(--space-xs); }
 
-  /* EVENTS */
-  .events { padding: 96px 48px; max-width: 1280px; margin: 0 auto; }
-  .events-head { margin-bottom: 56px; }
-  .events-head h2 {
-    font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; line-height: 0.95;
-    letter-spacing: -0.02em; color: var(--crimson);
-  }
-  .events-list { display: flex; flex-direction: column; }
-  .event-row {
-    display: grid; grid-template-columns: 200px 1fr auto; gap: 40px; align-items: center;
-    padding: 32px 0; border-top: 1.5px solid rgba(30,30,30,0.15);
-  }
-  .event-row:last-child { border-bottom: 1.5px solid rgba(30,30,30,0.15); }
-  .event-when { font-weight: 700; font-size: 16px; }
-  .event-when span { display: block; color: var(--mortar); font-weight: 500; font-size: 14px; margin-top: 2px; }
-  .event-body h3 { font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
-  .event-body p { color: var(--mortar); font-size: 16px; max-width: 560px; }
-  .event-tag {
-    font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-    color: var(--ivy); white-space: nowrap;
-  }
+/* Statement: the ink band */
+.ink { background: var(--color-ivy); color: var(--color-cream); padding-block: var(--section-gap); text-align: center; }
+.ink blockquote { margin: 0; }
+.ink blockquote p { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4.5vw, 3.625rem); line-height: 1.08; letter-spacing: var(--tracking-display); max-width: 28ch; margin-inline: auto; text-wrap: balance; }
+.ink cite { display: block; margin-top: var(--space-xl); font-style: normal; font-size: 1.0625rem; font-weight: 500; color: var(--color-pear); }
 
-  /* QUOTE BAND */
-  .quote-band { background: var(--ivy); color: var(--cream); padding: 120px 48px; text-align: center; }
-  .quote-band blockquote {
-    max-width: 1000px; margin: 0 auto; font-size: clamp(32px, 4.5vw, 58px);
-    font-weight: 800; line-height: 1.08; letter-spacing: -0.02em;
-  }
-  .quote-band cite {
-    display: block; margin-top: 36px; font-size: 17px; font-weight: 500;
-    font-style: normal; color: var(--pear);
-  }
+/* Officers: one line and an action */
+.officers { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-lg); padding-block: var(--section-gap-s) 0; }
+.officers h2 { max-width: 16ch; }
+.officers p { margin-top: var(--space-sm); }
 
-  /* HOW IT WORKS */
-  .how { padding: 96px 48px; max-width: 1280px; margin: 0 auto; }
-  .how h2 {
-    font-size: clamp(36px, 4.5vw, 56px); font-weight: 900; letter-spacing: -0.02em;
-    margin-bottom: 56px; max-width: 720px; line-height: 1.0;
-  }
-  .how h2 .accent { color: var(--crimson); }
-  .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-  .how-card .num { font-size: 15px; font-weight: 700; color: var(--crimson); margin-bottom: 16px; }
-  .how-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.01em; }
-  .how-card p { color: var(--mortar); font-size: 16px; line-height: 1.6; }
+/* Membership: the close */
+.membership { padding-block: var(--section-gap-s) var(--section-gap); }
+.offer { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-xl); }
+.price { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.75rem, 5.4vw, 6rem); line-height: 1; overflow-wrap: break-word; min-width: 0; letter-spacing: -0.03em; color: var(--color-accent); font-variant-numeric: lining-nums; }
+.price-note { margin-top: var(--space-sm); }
+.terms { margin: 0; }
+.terms div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 5fr); gap: var(--space-lg); padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.terms div:first-child { padding-top: 0; }
+.terms dt { font-size: var(--text-sm); font-weight: 600; color: var(--color-muted); }
+.terms dd { margin: 0; }
+.offer .actions { margin-top: var(--space-xl); }
 
-  /* JOIN / FOOTER BAND */
-  .join-band { background: var(--ivy); color: var(--cream); }
-  .join-content { max-width: 1280px; margin: 0 auto; padding: 64px 48px 56px; }
-  .join-org { font-size: 21px; font-weight: 700; }
-  .join-org .meta { font-weight: 400; font-size: 15px; color: var(--pear); margin-top: 14px; line-height: 1.7; }
-  .join-org .meta a { text-decoration: underline; }
-  .footer-base {
-    border-top: 1px solid rgba(245,242,235,0.2); max-width: 1280px; margin: 0 auto;
-    padding: 24px 48px 40px; display: flex; justify-content: space-between;
-    font-size: 13px; color: var(--pear);
-  }
+/* FOOTER: the original banner */
+.join-band { background: var(--color-ivy); color: var(--color-cream); }
+.join-content { max-width: var(--container); margin: 0 auto; padding: var(--space-2xl) var(--gutter) 56px; }
+.join-org { font-size: 1.3125rem; font-weight: 700; }
+.join-org .meta { font-weight: 400; font-size: 0.9375rem; color: var(--color-pear); margin-top: 14px; line-height: 1.7; }
+.join-org .meta a { text-decoration: underline; text-decoration-color: currentColor; }
+.join-band :focus-visible { outline-color: var(--color-cream); }
+.footer-base {
+  border-top: 1px solid rgba(245,242,235,0.2); width: calc(100% - 2 * var(--gutter)); max-width: calc(var(--container) - 2 * var(--gutter)); margin: 0 auto;
+  padding: var(--space-lg) 0 var(--space-xl); display: flex; justify-content: space-between; gap: var(--space-xs);
+  font-size: 0.8125rem; color: var(--color-pear);
+}
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav, .hero-photo, .hero, .events, .how, .join-content { padding-left: 24px; padding-right: 24px; }
-    .brand { font-size: 15px; }
-    .nav-right { gap: 12px; }
-    .menu-toggle { display: flex; }
-    .nav-cta { font-size: 14px; padding: 11px 16px; white-space: nowrap; }
-    .nav-links {
-      display: none; position: absolute; top: 100%; left: 24px; right: 24px; z-index: 50;
-      flex-direction: column; gap: 0; padding: 8px; background: var(--cream);
-      border-radius: 10px; box-shadow: 0 12px 32px rgba(30,30,30,0.15);
-    }
-    nav.open .nav-links { display: flex; }
-    .nav-links a { padding: 14px 16px; opacity: 1; font-size: 16px; border-radius: 6px; }
-    .nav-links a:hover { background: var(--beige); }
-    .hero { grid-template-columns: 1fr; gap: 32px; padding-bottom: 64px; }
-    .info-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-    .event-row { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
-    .event-tag { margin-top: 4px; }
-    .how-grid { grid-template-columns: 1fr; gap: 36px; }
-    .footer-base { flex-direction: column; gap: 8px; }
+/* Responsive: the nav folds into the menu before its links would wrap */
+@media (max-width: 68rem) {
+  .menu-toggle { display: flex; }
+  .nav-right { gap: var(--space-sm); }
+  .wordmark { font-size: 0.9375rem; white-space: normal; }
+  .nav-links {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: var(--z-dropdown);
+    flex-direction: column; gap: 0; padding: var(--space-xs); margin-inline: var(--gutter); background: var(--color-cream);
+    border-radius: 10px; box-shadow: 0 12px 32px rgba(30,30,30,0.15);
   }
+  nav.open .nav-links { display: flex; }
+  .nav-links a { padding: var(--space-sm) var(--space-md); font-size: var(--text-md); opacity: 1; border-radius: var(--radius-btn); }
+  .nav-links a:hover { background: var(--color-paper); text-decoration: none; }
+}
+@media (max-width: 60rem) {
+  .footer-base { flex-direction: column; }
+  .split, .offer { grid-template-columns: minmax(0, 1fr); }
+  .ledger-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); padding-block: var(--space-lg); }
+  .ledger-row .tag { text-align: left; }
+  .split > h2 { margin-bottom: var(--space-lg); }
+}
+@media (max-width: 40rem) {
+  .slab .btn--primary { padding: 0 var(--space-md); font-size: var(--text-sm); }
+  .plate [data-slot] { height: clamp(200px, 30dvh, 280px); }
+  .plate [data-slot] > img { object-position: center 75%; }
+  .steps li { grid-template-columns: minmax(0, 1fr) minmax(0, 4fr); }
+  .terms div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="brand">Harvard Graduate Tennis Club</div>
-  <div class="nav-right">
-    <div class="nav-links" id="nav-links">
-      <a href="#events">Events</a>
-      <a href="#how">How It Works</a>
-      <a href="leadership.html">Leadership</a>
-      <a href="https://www.instagram.com/harvard_grad_tennis_club/" target="_blank">Instagram</a>
-    </div>
-    <a href="https://docs.google.com/forms/d/1S2SS2_oEjFC9LeZhb5DVs4G8AgGqv0lL6LyE40gG2-0/viewform" target="_blank" class="nav-cta">Become a Member</a>
-    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<div class="hero-photo">
-  <img src="images/hggtc-april2026.jpeg" alt="Harvard Graduate Tennis Club members">
-</div>
-
-<section class="hero">
-  <div>
-    <div class="hero-eyebrow">Harvard Graduate Tennis Club</div>
-    <h1>A tennis community for Harvard graduate students, <span class="accent">on and off the court.</span></h1>
-  </div>
-<div class="hero-right">
-    <p class="hero-desc">Since the summer of 2024, we have been fostering a vibrant community among Harvard graduate students through a shared passion for tennis. Today, we are the largest graduate club on campus.</p>
-  </div>
-</section>
-
-<section class="info-strip">
-  <div class="info-grid">
-    <div class="info-item">
-      <div class="k">Practice</div>
-      <div class="v">Summer schedule<span>Info released weekly to members through our email list</span></div>
-    </div>
-    <div class="info-item">
-      <div class="k">Membership</div>
-      <div class="v">$30/semester<span>Sign up via Google Form</span></div>
-    </div>
-    <div class="info-item">
-      <div class="k">Skill Level</div>
-      <div class="v">All welcome<span>Beginner instruction available</span></div>
-    </div>
-    <div class="info-item">
-      <div class="k">Founded</div>
-      <div class="v">2024<span>A growing Harvard community</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="meet" style="padding: 120px 48px; max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px;">
-  <div>
-    <h2 style="font-size: clamp(32px, 4vw, 52px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.0;">Get to know our <span style="color: #A51C30;">officers.</span></h2>
-    <p style="font-size: 17px; color: #8C8179; margin-top: 14px; max-width: 480px; line-height: 1.6;">Meet the graduate students who keep the club running, on and off the court.</p>
-  </div>
-  <a href="leadership.html" style="display: inline-block; background: #1E1E1E; color: #F5F2EB; font-weight: 700; font-size: 15px; padding: 15px 32px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;">Meet the Team</a>
-</section>
-
-<section class="events" id="events">
-  <div class="events-head">
-    <h2>Upcoming<br>Events</h2>
-  </div>
-  <div class="events-list">
-    <div class="event-row">
-      <div class="event-when"> Tuesdays (Summer schedule)<span>Time released weekly</span></div>
-      <div class="event-body">
-        <h3>Weekly Practice</h3>
-        <p>Open play at the Murr Center for all skill levels. Beginners welcome, with instruction available and a limited number of loaner rackets.</p>
+<header class="slab">
+  <nav class="container">
+    <a href="index.html" class="wordmark">Harvard Graduate Tennis Club</a>
+    <div class="nav-right">
+      <div class="nav-links" id="nav-links">
+        <a href="#events">Events</a>
+        <a href="#how">How It Works</a>
+        <a href="leadership.html">Leadership</a>
+        <a href="https://www.instagram.com/harvard_grad_tennis_club/" target="_blank">Instagram</a>
       </div>
-      <div class="event-tag">Members</div>
+      <a href="https://docs.google.com/forms/d/1S2SS2_oEjFC9LeZhb5DVs4G8AgGqv0lL6LyE40gG2-0/viewform" target="_blank" class="btn btn--primary nav-cta">Become a Member</a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
     </div>
-    <div class="event-row">
-      <div class="event-when">Seasonal</div>
-      <div class="event-body">
-        <h3>Tournament Watch Parties</h3>
-        <p>We gather to watch the Grand Slams and other major tournaments together as a club.</p>
+  </nav>
+</header>
+
+<main>
+  <section class="hero container" aria-labelledby="hero-title">
+    <figure class="plate">
+      <div data-slot="hero" data-alt="Harvard Graduate Tennis Club members">
+        <img src="images/hggtc-april2026.jpeg" alt="Harvard Graduate Tennis Club members" fetchpriority="high">
       </div>
-      <div class="event-tag">Social</div>
-    </div>
-    <div class="event-row">
-      <div class="event-when">Year-round</div>
-      <div class="event-body">
-        <h3>Team-Building Socials</h3>
-        <p>Events beyond the court to help GSAS students meet people across departments and programs.</p>
+      <figcaption class="label">The club on court, April 2026.</figcaption>
+    </figure>
+    <div class="hero-foot">
+      <h1 id="hero-title">A <span class="accent">tennis community</span> for Harvard graduate students.</h1>
+      <div>
+        <p>Since summer 2024, and now the largest graduate club on campus.</p>
+        <div class="actions">
+          <a href="https://docs.google.com/forms/d/1S2SS2_oEjFC9LeZhb5DVs4G8AgGqv0lL6LyE40gG2-0/viewform" target="_blank" class="btn btn--primary">Become a Member</a>
+          <a href="leadership.html" class="btn btn--secondary">Meet the Team</a>
+        </div>
       </div>
-      <div class="event-tag">Open</div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="quote-band">
-  <blockquote>Rally, meet friends, and have fun.</blockquote>
-  <cite>Harvard Graduate Tennis Club</cite>
-</section>
+  <section class="section container" id="events" aria-labelledby="events-title">
+    <div class="split">
+      <h2 id="events-title">Upcoming events</h2>
+      <div class="ledger">
+        <div class="ledger-row">
+          <div class="when">Tuesdays</div>
+          <div>
+            <h3>Weekly Practice</h3>
+            <p class="muted">Open play at the Murr Center for all skill levels. Beginners welcome, with instruction available and a limited number of loaner rackets.</p>
+          </div>
+          <div class="tag label">Members</div>
+        </div>
+        <div class="ledger-row">
+          <div class="when">Seasonal</div>
+          <div>
+            <h3>Tournament Watch Parties</h3>
+            <p class="muted">We gather to watch the Grand Slams and other major tournaments together as a club.</p>
+          </div>
+          <div class="tag label">Social</div>
+        </div>
+        <div class="ledger-row">
+          <div class="when">Year-round</div>
+          <div>
+            <h3>Team-Building Socials</h3>
+            <p class="muted">Events beyond the court to help Harvard graduate students meet people across departments and programs.</p>
+          </div>
+          <div class="tag label">Open</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="how" id="how">
-  <h2>Getting started is <span class="accent">simple.</span></h2>
-  <div class="how-grid">
-    <div class="how-card">
-      <div class="num">01</div>
-      <h3>Fill out the form</h3>
-      <p> Join the email list and get notified when we release spots at the beginning of each semester. </p>
+  <section class="band" id="how" aria-labelledby="how-title">
+    <div class="section container split">
+      <h2 id="how-title">Getting started is simple.</h2>
+      <ol class="steps">
+        <li><div><h3>Fill out the form</h3><p class="muted">Join the email list and get notified when we release spots at the beginning of each semester.</p></div></li>
+        <li><div><h3>Become a member</h3><p class="muted">Pay the $30/semester membership fee through our Google Form once notified.</p></div></li>
+        <li><div><h3>Attend the sessions</h3><p class="muted">We release the Google sign-up sheet every week, usually a day before practice. Spots are limited by court availability, so act quickly.</p></div></li>
+      </ol>
     </div>
-    <div class="how-card">
-      <div class="num">02</div>
-      <h3>Become a member</h3>
-      <p>Pay the $30/semester membership fee through our Google Form once notified.</p>
-    </div>
-    <div class="how-card">
-      <div class="num">03</div>
-      <h3>Attend the sessions</h3>
-      <p>We release the Google sign-up sheet every week (usually a day before the practice session). Spots are limited due to court availability, so act quickly!</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="join-band" id="join">
-<div class="join-content">
-<div class="join-org">
+  <section class="ink" aria-label="Club motto">
+    <div class="container">
+      <blockquote>
+        <p>Rally, meet friends, and have fun.</p>
+        <cite>Harvard Graduate Tennis Club</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="container officers" aria-labelledby="officers-title">
+    <div>
+      <h2 id="officers-title">Get to know our officers.</h2>
+      <p class="muted">The graduate students who keep the club running, on and off the court.</p>
+    </div>
+    <a href="leadership.html" class="btn btn--secondary">Meet the Team</a>
+  </section>
+
+  <section class="container membership" aria-labelledby="membership-title">
+    <h2 id="membership-title" class="visually-hidden">Membership</h2>
+    <div class="offer">
+      <div>
+        <p class="price">$30/semester</p>
+        <p class="price-note muted">Membership, paid through our Google Form.</p>
+      </div>
+      <div>
+        <dl class="terms">
+          <div><dt>Skill level</dt><dd>All welcome, with beginner instruction available</dd></div>
+          <div><dt>Founded</dt><dd>2024, a growing Harvard community</dd></div>
+        </dl>
+        <div class="actions">
+          <a href="https://docs.google.com/forms/d/1S2SS2_oEjFC9LeZhb5DVs4G8AgGqv0lL6LyE40gG2-0/viewform" target="_blank" class="btn btn--primary">Become a Member</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="join-band" id="join">
+  <div class="join-content">
+    <div class="join-org">
       Harvard Graduate Tennis Club
       <div class="meta">
-        Cambridge, MA <br>
+        Cambridge, MA<br>
         <a href="mailto:harvardgriffingsastennisclub@gmail.com">Email us</a><br>
         <a href="https://www.instagram.com/harvard_grad_tennis_club/" target="_blank">Instagram</a>
       </div>
@@ -313,9 +297,9 @@
   </div>
   <div class="footer-base">
     <div>&copy; 2026 Harvard Graduate Tennis Club</div>
-    <div>A registered Harvard University student organization. </div>
+    <div>A registered Harvard University student organization.</div>
   </div>
-</section>
+</footer>
 
 <script>
   (function () {
@@ -332,5 +316,7 @@
     document.addEventListener('click', function (e) { if (!nav.contains(e.target)) setOpen(false); });
   })();
 </script>
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
 </body>
 </html>
