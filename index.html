@@ -63,13 +63,14 @@ nav.open .menu-toggle span:nth-child(2) { opacity: 0; }
 nav.open .menu-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* HERO: Ledge */
-.hero { padding-block: var(--space-lg) var(--space-2xl); }
+.hero { padding-block: var(--space-lg) 0; }
 .plate { margin: 0; }
 .plate [data-slot] { aspect-ratio: 16 / 10; border-radius: var(--radius-card); }
 .plate [data-slot] > img { object-position: center 30%; }
 .plate figcaption { margin-top: var(--space-xs); }
 /* One column at every width: headline, then the sentence, then the two buttons side by side */
-.hero-foot { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-lg); }
+/* Space above the headline matches the space below the buttons (--section-gap-s on both sides) */
+.hero-foot { display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--section-gap-s); }
 .hero-foot h1 { max-width: 22ch; font-size: clamp(2.5rem, 3vw + 1rem, 4.5rem); }
 .hero-foot p { font-size: var(--text-lead); line-height: 1.45; max-width: 44ch; margin: var(--space-md) 0 var(--space-lg); }
 
